@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if profile %}{{ profile.full_name }}{% else %}Portfolio{% endif %} – Senior Full-Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Orqa fon -->
+    <div class="bg-scene">
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+    </div>
+
+    <!-- Asosiy karta -->
+    <div class="card-wrapper">
+        <div class="glass-card">
+
+            <!-- Sticky header -->
+            <div class="card-sticky-header" id="stickyHeader">
+                <div class="sticky-avatar">
+                    {% if profile and profile.photo %}
+                        <img src="{{ profile.photo.url }}" alt="{{ profile.full_name }}">
+                    {% else %}
+                        <div class="avatar-placeholder-sm">MS</div>
+                    {% endif %}
+                </div>
+                <div class="sticky-info">
+                    <span class="sticky-name">{% if profile %}{{ profile.full_name }}{% else %}MuhammadSafo Abduqaxxorov{% endif %}</span>
+                    <span class="sticky-role">{% if profile %}{{ profile.specialty }}{% else %}Senior Full-Stack Developer{% endif %}</span>
+                </div>
+            </div>
+
+            <!-- Scrollable kontent -->
+            <div class="card-scroll-body" id="cardBody">
+
+                <!-- Haqida -->
+                <div class="tab-section active" id="section-haqida">
+                    <div class="profile-header">
+                        <div class="avatar-ring">
+                            {% if profile and profile.photo %}
+                                <img src="{{ profile.photo.url }}" alt="{{ profile.full_name }}" class="avatar-img">
+                            {% else %}
+                                <div class="avatar-placeholder">MS</div>
+                            {% endif %}
+                            <div class="avatar-status"></div>
+                        </div>
+                        <h1 class="profile-name">{% if profile %}{{ profile.full_name }}{% else %}MuhammadSafo Abduqaxxorov{% endif %}</h1>
+                        <p class="profile-role">{% if profile %}{{ profile.specialty|upper }}{% else %}SENIOR FULL-STACK DEVELOPER{% endif %}</p>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-num">{% if profile %}{{ profile.years_of_experience }}+{% else %}5+{% endif %}</span>
+                            <span class="stat-label">Yillik tajriba</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-num">{% if profile %}{{ profile.projects_count }}+{% else %}65+{% endif %}</span>
+                            <span class="stat-label">Loyihalar</span>
+                        </div>
+                    </div>
+
+                    <div class="bio-text">
+                        {% if profile %}
+                            <p>{{ profile.bio }}</p>
+                        {% else %}
+                            <p>Safobek Abduqaxxorov — Senior Full-Stack Developer. 5+ yillik tajribaga ega bo'lib, 65+ loyiha ustida ishlagan. Telegram botlar yaratish va murakkab avtomatlashtirilgan tizimlarni ishlab chiqishda katta tajribaga ega. PHP va Python bo'yicha yuqori darajadagi mutaxassis.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Tajriba -->
+                <div class="tab-section" id="section-tajriba">
+                    <h2 class="section-title">Ish tajribasi</h2>
+                    <div class="timeline">
+                        {% if experiences %}
+                            {% for exp in experiences %}
+                            <div class="timeline-item">
+                                <div class="timeline-year">{{ exp.year }}</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>{{ exp.title }}</h3>
+                                    <p>{{ exp.description }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="timeline-item">
+                                <div class="timeline-year">2019</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Telegram bot dasturchisi</h3>
+                                    <p>Avtomatlashtirilgan va foydalanuvchi qulay interfeysli Telegram botlarni yaratish.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2021</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Veb saytlar dasturchisi</h3>
+                                    <p>Frontend va backend qismlarini to'liq ishlab chiqish, zamonaviy va responsiv dizayn yaratish.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2023</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Professional web dasturchi</h3>
+                                    <p>Texnologiyalar: HTML, CSS, JavaScript, PHP, MySQL, JSON — samarali va xavfsiz loyihalar ishlab chiqish.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Python & Django mutaxassisi</h3>
+                                    <p>Murakkab backend tizimlari, API integratsiyalari va avtomatlashtirish yechimlari.</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Tarmoqlar -->
+                <div class="tab-section" id="section-tarmoqlar">
+                    <h2 class="section-title">Tarmoqlar</h2>
+                    <div class="social-list">
+                        {% if social_links %}
+                            {% for link in social_links %}
+                            <a href="{{ link.url }}" target="_blank" class="social-item platform-{{ link.platform }}">
+                                <div class="social-icon">
+                                    {% if link.platform == 'instagram' %}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                                    {% elif link.platform == 'telegram' %}
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.024 9.536c-.148.667-.537.833-1.088.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.216-3.053 5.56-5.023c.242-.215-.053-.334-.373-.12L7.34 14.6l-2.95-.924c-.641-.2-.654-.641.134-.948l11.527-4.444c.534-.194 1.001.13.511.964z"/></svg>
+                                    {% elif link.platform == 'github' %}
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                    {% elif link.platform == 'linkedin' %}
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                    {% else %}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                                    {% endif %}
+                                </div>
+                                <span class="social-name">{{ link.name }}</span>
+                                <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </a>
+                            {% endfor %}
+                        {% else %}
+                            <a href="#" class="social-item platform-instagram">
+                                <div class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+                                <span class="social-name">Instagram</span>
+                                <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </a>
+                            <a href="#" class="social-item platform-telegram">
+                                <div class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.024 9.536c-.148.667-.537.833-1.088.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.216-3.053 5.56-5.023c.242-.215-.053-.334-.373-.12L7.34 14.6l-2.95-.924c-.641-.2-.654-.641.134-.948l11.527-4.444c.534-.194 1.001.13.511.964z"/></svg></div>
+                                <span class="social-name">Telegram</span>
+                                <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </a>
+                            <a href="#" class="social-item platform-telegram">
+                                <div class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.024 9.536c-.148.667-.537.833-1.088.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.216-3.053 5.56-5.023c.242-.215-.053-.334-.373-.12L7.34 14.6l-2.95-.924c-.641-.2-.654-.641.134-.948l11.527-4.444c.534-.194 1.001.13.511.964z"/></svg></div>
+                                <span class="social-name">Telegram – IT &amp; Life Blog</span>
+                                <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Aloqa -->
+                <div class="tab-section" id="section-aloqa">
+                    <h2 class="section-title">Aloqa</h2>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <span>{% if contact and contact.address %}{{ contact.address }}{% else %}Farg'ona, Oltiariq, Chinortagi BEKLAR MFY{% endif %}</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                            </div>
+                            <span>{% if contact and contact.phone %}{{ contact.phone }}{% else %}+998 (77) 008-33-14{% endif %}</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <span>{% if contact and contact.email %}{{ contact.email }}{% else %}muhammadsafobekuz@gmail.com{% endif %}</span>
+                        </div>
+                    </div>
+
+                    <a href="{% if profile and profile.work_together_url %}{{ profile.work_together_url }}{% else %}mailto:muhammadsafobekuz@gmail.com{% endif %}"
+                       class="btn-work-together">
+                        <span>Birga ishlash</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+
+            </div><!-- /.card-scroll-body -->
+
+            <!-- Tab navigatsiyasi -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="haqida">Haqida</button>
+                <button class="tab-btn" data-tab="tajriba">Tajriba</button>
+                <button class="tab-btn" data-tab="tarmoqlar">Tarmoqlar</button>
+                <button class="tab-btn" data-tab="aloqa">Aloqa</button>
+            </nav>
+
+        </div><!-- /.glass-card -->
+    </div><!-- /.card-wrapper -->
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
